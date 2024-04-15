@@ -6,8 +6,15 @@ import (
 	"net/http"
 )
 
-// helper function to respond with JSON
+// helper function to respond with Error code
+func RespondWithError(w http.ResponseWriter, code int, message string) {
+	if code > 499 {
+		log.Printf("Error: %v , responding with 5xx error", message)
+	}
+	respondWithJSON(w, code, map[string]string{"error": message})
+}
 
+// helper function to respond with JSON
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	dat, err := json.Marshal(payload)
 	if err != nil {
@@ -16,6 +23,6 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 		return
 	}
 	w.Header().Add("Content-Type", "application/JSON")
-	w.WriteHeader(200)
+	w.WriteHeader(code)
 	w.Write(dat)
 }

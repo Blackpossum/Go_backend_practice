@@ -30,15 +30,15 @@ func main() {
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: true,
 		MaxAge:           300,
-	}
+	}))
 
+	// hooks up http handler with a new router
+	v1Router := chi.NewRouter()
+	v1Router.Get("/ready", Handlerr_management)
+	v1Router.Get("/error", Handlerr_Error)
+	router.Mount("/v1", v1Router)
 	// configure router
-	srv := &http.Server{
-		Handler: router,
-		Addr:    ":" + portString,
-	}
-
-	// start the server and capture error if any
+	srv := &http.Server{Handler: router, Addr: ":" + portString}
 	log.Printf("server running on port %v", portString)
 	err := srv.ListenAndServe()
 	if err != nil {
