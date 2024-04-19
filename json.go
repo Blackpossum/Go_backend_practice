@@ -18,7 +18,7 @@ func RespondWithError(w http.ResponseWriter, code int, message string) {
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	dat, err := json.Marshal(payload)
 	if err != nil {
-		log.Printf("failed to marshal JSONresponse: %v", payload)
+		log.Printf("failed marshaling JSONresponse: %v", payload)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
