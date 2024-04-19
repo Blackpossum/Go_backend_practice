@@ -1,0 +1,14 @@
+rules:
+  # Backend-related labels for Go repository
+  - path: backend/**/*.go
+    labels: [ "backend", "go" ]
+  - path: backend/**/*.sql
+    labels: [ "backend", "sql" ]
+
+  # Configuration-related labels
+  - path: config/**/*.json
+    labels: [ "config", "json" ]
+
+  # Other labels
+  - path: docs/**/*.md
+    labels: [ "documentation", "markdown" ]
